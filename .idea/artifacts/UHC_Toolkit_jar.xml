@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="UHC_Toolkit:jar">
+    <output-path>$PROJECT_DIR$/Build</output-path>
+    <root id="archive" name="UHC_Toolkit.jar">
+      <element id="module-output" name="UHC_Toolkit" />
+    </root>
+  </artifact>
+</component>

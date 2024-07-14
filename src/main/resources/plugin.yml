@@ -1,0 +1,10 @@
+name: UHC_Toolkit
+version: '1 Test Build'
+main: me.grgeorge.uhc_Toolkit.UHC_Toolkit
+api-version: '1.21'
+description: A toolkit for uhc all the basic needs for your UHC tournament made by GrGeorge and EpicGamer
+commands:
+  pvp_enable:
+    usage: /pvp_enable
+  pvp_disable:
+    usage: /pvp_disable
