@@ -1,3 +1,6 @@
+//SPECIAL THANKS TO EPICGAMERGR FOR PROVIDING PART OF THIS CODE TO MAKE OUR LIVES A LOT EASIER AND TO
+//CREATE THE BEST UHC TOOLKIT IN THE WORLD
+//CUSTOMIZATION IS COMING SOON SO STAY ALERT WHEN I RELEASE THE NEWEST VERSION ON SPIGOT MC
 package me.grgeorge.uhc_Toolkit;
 
 import org.bukkit.Bukkit;
@@ -8,10 +11,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
