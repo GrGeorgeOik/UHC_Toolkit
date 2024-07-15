@@ -3,26 +3,68 @@ package me.grgeorge.uhc_Toolkit;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+
+import java.util.UUID;
 
 public class EventListener implements Listener {
 
-    UHC_Toolkit uhcToolkit;
     Location deathLocation;
     boolean pvpStatus = false;
+    UHC_Toolkit uhcToolkit;
 
     EventListener(UHC_Toolkit uhcToolkit){
 
         this.uhcToolkit = uhcToolkit;
-
         Bukkit.getPluginManager().registerEvents(this,this.uhcToolkit);
+    }
 
+    @EventHandler
+    public void playerDeath(PlayerDeathEvent e){
+        Player player = (Player) e.getEntity();
+
+        ItemStack playerhead = new ItemStack(Material.PLAYER_HEAD);
+        ItemMeta itemMeta = playerhead.getItemMeta();
+        SkullMeta skullMeta = (SkullMeta) itemMeta;
+
+        UUID uuid = player.getUniqueId();
+        skullMeta.setOwningPlayer(Bukkit.getServer().getOfflinePlayer(uuid));
+
+        itemMeta.setFireResistant(true);
+        playerhead.setItemMeta(itemMeta);
+
+        player.getWorld().dropItemNaturally(player.getLocation(),playerhead);
+    }
+
+    @EventHandler
+    public void interact(PlayerInteractEvent e){
+
+        Player player = (Player) e.getPlayer();
+        if (!e.getItem().getItemMeta().isUnbreakable()){
+            return;
+        }
+        e.getItem().setAmount(e.getItem().getAmount()-1);
+
+        PotionEffect potionEffect2 = new PotionEffect(PotionEffectType.REGENERATION,96,2);
+        PotionEffect potionEffect1 = new PotionEffect(PotionEffectType.ABSORPTION,20*60,0);
+        PotionEffect potionEffect3 = new PotionEffect(PotionEffectType.FIRE_RESISTANCE,20*20,0);
+
+        player.addPotionEffect(potionEffect1);
+        player.addPotionEffect(potionEffect2);
+        player.addPotionEffect(potionEffect3);
     }
 
     public void enablePVP(){
@@ -63,4 +105,6 @@ public class EventListener implements Listener {
 
 
     }
+
+
 }

@@ -12,6 +12,8 @@ public final class UHC_Toolkit extends JavaPlugin {
         // Plugin startup login
         Bukkit.getLogger().info("UHC Toolkit has started");
 
+        new Recipes(this);
+
         EventListener eventListener = new EventListener(this);
 
         getCommand("pvp_enable").setExecutor(new EnablePvp(eventListener));
