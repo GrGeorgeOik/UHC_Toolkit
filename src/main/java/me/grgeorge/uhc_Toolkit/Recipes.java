@@ -1,5 +1,6 @@
 //CREDIT TO EPICGAMERGR FOR MAKING THIS PLUGIN ACCESSIBLE TO ME SO I CAN IMPLEMENT IT TO MY PROJECT
 //MAKING OUR LIVES A LOT EASIER
+//---------------BY EPICGAMER-------------------------------------------------------------------------------------------
 package me.grgeorge.uhc_Toolkit;
 
 import org.bukkit.Color;
@@ -44,3 +45,4 @@ public class Recipes {
         getServer().addRecipe(shapedRecipe);
     }
 }
+//----------------------------------------------------------------------------------------------------------------------

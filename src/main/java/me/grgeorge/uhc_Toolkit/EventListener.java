@@ -49,7 +49,7 @@ public class EventListener implements Listener {
 
         player.getWorld().dropItemNaturally(player.getLocation(),playerhead);
     }
-
+//---------------BY EPICGAMER-------------------------------------------------------------------------------------------
     @EventHandler
     public void interact(PlayerInteractEvent e){
 
@@ -66,6 +66,7 @@ public class EventListener implements Listener {
         player.addPotionEffect(potionEffect1);
         player.addPotionEffect(potionEffect2);
         player.addPotionEffect(potionEffect3);
+//----------------------------------------------------------------------------------------------------------------------
     }
 
     public void enablePVP(){
