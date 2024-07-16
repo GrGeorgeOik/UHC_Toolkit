@@ -3,10 +3,10 @@
 //---------------BY EPICGAMER-------------------------------------------------------------------------------------------
 package me.grgeorge.uhc_Toolkit;
 
-import org.bukkit.Color;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.entity.Horse;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -24,7 +24,7 @@ public class Recipes {
         reviveHead(this.uhcToolkit);
     }
 
-    private void goldenHead(UHC_Toolkit uhcGoldenHeads){
+    private void goldenHead(UHC_Toolkit uhcToolkit){
         ItemStack itemStack = new ItemStack(Material.GOLDEN_APPLE,1);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName("GOLDEN HEAD");
@@ -37,7 +37,7 @@ public class Recipes {
 
         itemStack.setItemMeta(itemMeta);
 
-        ShapedRecipe shapedRecipe = new ShapedRecipe(new NamespacedKey(uhcGoldenHeads,"golden_head"),itemStack);
+        ShapedRecipe shapedRecipe = new ShapedRecipe(new NamespacedKey(uhcToolkit,"golden_head"),itemStack);
 
         shapedRecipe.shape("GGG","GHG","GGG");
         shapedRecipe.setIngredient('G',Material.GOLD_INGOT);
@@ -46,25 +46,29 @@ public class Recipes {
         getServer().addRecipe(shapedRecipe);
     }
 
-    private void reviveHead(UHC_Toolkit uhcGoldenHeads){
+    private void reviveHead(UHC_Toolkit uhcToolkit){
+        Bukkit.broadcastMessage(ChatColor.AQUA + "ITEM");
+
         ItemStack itemStack = new ItemStack(Material.PLAYER_HEAD,1);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName("REVIVE HEAD");
         itemMeta.setUnbreakable(true);
+        itemMeta.setFireResistant(true);
         ArrayList<String> lore =  new ArrayList<>();
         lore.add("Use it to revive the player");
         itemMeta.setLore(lore);
 
         itemStack.setItemMeta(itemMeta);
 
-        ShapedRecipe shapedRecipe = new ShapedRecipe(new NamespacedKey(uhcGoldenHeads,"revive_head"),itemStack);
+        ShapedRecipe shapedRecipe = new ShapedRecipe(new NamespacedKey(uhcToolkit,"revive_head"),itemStack);
 
-        shapedRecipe.shape("ADA","DHD","ADA");
-        shapedRecipe.setIngredient('A',Material.AIR);
+        shapedRecipe.shape("XDX","DHD","XDX");
         shapedRecipe.setIngredient('D',Material.DIAMOND);
         shapedRecipe.setIngredient('H',Material.PLAYER_HEAD);
 
         getServer().addRecipe(shapedRecipe);
+
     }
+
 }
 //----------------------------------------------------------------------------------------------------------------------

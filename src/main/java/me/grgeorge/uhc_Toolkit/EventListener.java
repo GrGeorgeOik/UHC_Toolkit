@@ -83,9 +83,11 @@ public class EventListener implements Listener {
 
             Player revivePlayer = skullMeta.getOwningPlayer().getPlayer();
             if (revivePlayer != null){
-                player.playSound(player.getLocation(), Sound.ITEM_TOTEM_USE,1,1);
+                player.getWorld().playSound(player.getLocation(), Sound.ITEM_TOTEM_USE,1, 1);
                 revivePlayer.teleport(player.getLocation());
                 revivePlayer.setGameMode(GameMode.SURVIVAL);
+                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + revivePlayer.getName() + " was revived");
+                revivePlayer.setHealth(16);
             }
         }
 
@@ -170,6 +172,4 @@ public class EventListener implements Listener {
 
 
     }
-
-
 }
