@@ -20,7 +20,11 @@ public class Recipes {
 
     Recipes(UHC_Toolkit uhcToolkit){
         this.uhcToolkit = uhcToolkit;
+        goldenHead(this.uhcToolkit);
+        reviveHead(this.uhcToolkit);
+    }
 
+    private void goldenHead(UHC_Toolkit uhcGoldenHeads){
         ItemStack itemStack = new ItemStack(Material.GOLDEN_APPLE,1);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName("GOLDEN HEAD");
@@ -33,13 +37,31 @@ public class Recipes {
 
         itemStack.setItemMeta(itemMeta);
 
-        ShapedRecipe shapedRecipe = new ShapedRecipe(new NamespacedKey(uhcToolkit,"golden_head"),itemStack);
+        ShapedRecipe shapedRecipe = new ShapedRecipe(new NamespacedKey(uhcGoldenHeads,"golden_head"),itemStack);
 
-        shapedRecipe.shape(
-                "GGG",
-                "GHG",
-                "GGG");
+        shapedRecipe.shape("GGG","GHG","GGG");
         shapedRecipe.setIngredient('G',Material.GOLD_INGOT);
+        shapedRecipe.setIngredient('H',Material.PLAYER_HEAD);
+
+        getServer().addRecipe(shapedRecipe);
+    }
+
+    private void reviveHead(UHC_Toolkit uhcGoldenHeads){
+        ItemStack itemStack = new ItemStack(Material.PLAYER_HEAD,1);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setDisplayName("REVIVE HEAD");
+        itemMeta.setUnbreakable(true);
+        ArrayList<String> lore =  new ArrayList<>();
+        lore.add("Use it to revive the player");
+        itemMeta.setLore(lore);
+
+        itemStack.setItemMeta(itemMeta);
+
+        ShapedRecipe shapedRecipe = new ShapedRecipe(new NamespacedKey(uhcGoldenHeads,"revive_head"),itemStack);
+
+        shapedRecipe.shape("ADA","DHD","ADA");
+        shapedRecipe.setIngredient('A',Material.AIR);
+        shapedRecipe.setIngredient('D',Material.DIAMOND);
         shapedRecipe.setIngredient('H',Material.PLAYER_HEAD);
 
         getServer().addRecipe(shapedRecipe);

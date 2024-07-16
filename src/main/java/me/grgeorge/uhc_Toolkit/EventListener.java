@@ -3,16 +3,16 @@
 //CUSTOMIZATION IS COMING SOON SO STAY ALERT WHEN I RELEASE THE NEWEST VERSION ON SPIGOT MC
 package me.grgeorge.uhc_Toolkit;
 
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityTeleportEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -53,21 +53,70 @@ public class EventListener implements Listener {
     @EventHandler
     public void interact(PlayerInteractEvent e){
 
-        Player player = (Player) e.getPlayer();
+        if (e.getItem() == null){
+            return;
+        }
+
         if (!e.getItem().getItemMeta().isUnbreakable()){
             return;
         }
+
+        Player player = e.getPlayer();
+        ItemStack itemStack = e.getItem();
+
+        if (e.getItem().getType().equals(Material.GOLDEN_APPLE)){
+            player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_BURP,1,1);
+
+            PotionEffect potionEffect2 = new PotionEffect(PotionEffectType.REGENERATION,96,2);
+            PotionEffect potionEffect1 = new PotionEffect(PotionEffectType.ABSORPTION,2060,0);
+            PotionEffect potionEffect3 = new PotionEffect(PotionEffectType.FIRE_RESISTANCE,2020,0);
+
+            player.addPotionEffect(potionEffect1);
+            player.addPotionEffect(potionEffect2);
+            player.addPotionEffect(potionEffect3);
+        }
+        else if (e.getItem().getType().equals(Material.PLAYER_HEAD)){
+            player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_BURP,1,1);
+
+            ItemMeta itemMeta = itemStack.getItemMeta();
+            SkullMeta skullMeta = (SkullMeta) itemMeta;
+
+            Player revivePlayer = skullMeta.getOwningPlayer().getPlayer();
+            if (revivePlayer != null){
+                player.playSound(player.getLocation(), Sound.ITEM_TOTEM_USE,1,1);
+                revivePlayer.teleport(player.getLocation());
+                revivePlayer.setGameMode(GameMode.SURVIVAL);
+            }
+        }
+
+        //Remove one item
         e.getItem().setAmount(e.getItem().getAmount()-1);
-
-        PotionEffect potionEffect2 = new PotionEffect(PotionEffectType.REGENERATION,96,2);
-        PotionEffect potionEffect1 = new PotionEffect(PotionEffectType.ABSORPTION,20*60,0);
-        PotionEffect potionEffect3 = new PotionEffect(PotionEffectType.FIRE_RESISTANCE,20*20,0);
-
-        player.addPotionEffect(potionEffect1);
-        player.addPotionEffect(potionEffect2);
-        player.addPotionEffect(potionEffect3);
-//----------------------------------------------------------------------------------------------------------------------
     }
+
+    @EventHandler
+    public void craftItem(CraftItemEvent e){
+        ItemStack ResultitemStack = e.getInventory().getResult();
+
+        if (!ResultitemStack.getType().equals(Material.PLAYER_HEAD)) {
+            return;
+        }
+
+        ItemStack itemStack = e.getInventory().getMatrix()[4];
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        SkullMeta skullMeta = (SkullMeta) itemMeta;
+        UUID uuid = skullMeta.getOwnerProfile().getUniqueId();
+
+        ItemMeta ResultItemMeta = ResultitemStack.getItemMeta();
+        SkullMeta ResultSkullMeta = (SkullMeta) ResultItemMeta;
+        ResultSkullMeta.setOwningPlayer(Bukkit.getServer().getOfflinePlayer(uuid));
+        ResultitemStack.setItemMeta(ResultItemMeta);
+    }
+
+
+
+
+//----------------------------------------------------------------------------------------------------------------------
+
 
     public void enablePVP(){
 
@@ -86,8 +135,22 @@ public class EventListener implements Listener {
         Player player = event.getEntity();
 
         player.setGameMode(GameMode.SPECTATOR);
+//----if your name is not mrduty ignore-------------------------------------
+        if (player.getName().toString().equals("mrduty")){
+            player.sendMessage(ChatColor.RED + "WRAIA TR POU EISAI NEKROS STEILE TO BACKUP!");
+        }
+
 
     }
+
+    @EventHandler
+    public void onPlayerRespawn(PlayerRespawnEvent event){
+
+        event.setRespawnLocation(event.getPlayer().getLocation());
+
+    }
+
+
     @EventHandler
     public void pvpOff(EntityDamageByEntityEvent event){
 
