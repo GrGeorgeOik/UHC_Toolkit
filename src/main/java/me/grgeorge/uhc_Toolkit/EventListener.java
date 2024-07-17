@@ -3,15 +3,17 @@
 //CUSTOMIZATION IS COMING SOON SO STAY ALERT WHEN I RELEASE THE NEWEST VERSION ON SPIGOT MC
 package me.grgeorge.uhc_Toolkit;
 
-import net.md_5.bungee.api.ChatMessageType;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.entity.PlayerLeashEntityEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -153,6 +155,7 @@ public class EventListener implements Listener {
     }
 
 
+
     @EventHandler
     public void pvpOff(EntityDamageByEntityEvent event){
 
@@ -172,5 +175,41 @@ public class EventListener implements Listener {
 
 
     }
+    @EventHandler
+    public void onJoin(PlayerJoinEvent event){
+
+        Player player = event.getPlayer();
+
+        if (player.getName().toString().equals("GrGeorge_oik")){
+
+            event.setJoinMessage(ChatColor.RED + "[Admin] " + ChatColor.YELLOW + player.getDisplayName() + " joined the game");
+        } else if (player.getName().toString().equals("EpicGamerGR")) {
+
+            event.setJoinMessage(ChatColor.RED + "[Admin] " + ChatColor.YELLOW + player.getDisplayName() + " joined the game");
+
+        }else{
+            event.setJoinMessage(ChatColor.YELLOW + player.getDisplayName() + " joined the game");
+        }
+
+
+    }
+
+    @EventHandler
+    public void onLeave(PlayerQuitEvent event){
+
+        Player player = event.getPlayer();
+
+        if (player.getName().toString().equals("GrGeorge_oik")){
+            event.setQuitMessage(ChatColor.RED + "[Admin] " + ChatColor.YELLOW + player.getDisplayName() + " left the game");
+
+        } else if (player.getName().toString().equals("EpicGamerGR")) {
+            event.setQuitMessage(ChatColor.RED + "[Admin] " + ChatColor.YELLOW + player.getDisplayName() + " left the game");
+        }else{
+            event.setQuitMessage(ChatColor.YELLOW + player.getName() + " left the game");
+        }
+
+    }
+
+    
 
 }
